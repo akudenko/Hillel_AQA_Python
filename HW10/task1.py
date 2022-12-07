@@ -21,6 +21,7 @@
 # boo()
 # doo()
 
+
 # Файл foo.txt:
 # foo была вызвана 3 раза
 # boo была вызвана 2 раза
@@ -28,35 +29,42 @@
 #
 # doo была вызвана 1 раза
 #################################################################################################################
-counter = 0
 
 
 def call_times(filename):
     def decorator(func):
         def inner():
-            global counter
-            counter += 1
+            inner.count += 1
+            f_name = func.__name__
 
-            with open(filename, 'a') as f:
-                f.write(f'{func.__name__} была вызвана {counter} раза\n')
+            with open(filename, 'w') as f:
+                f.write(f'{f_name} была вызвана {inner.count} раза\n')
+            return func()
 
+        inner.count = 0
         return inner
 
     return decorator
 
 
-@call_times('log.txt')
+@call_times('foo.txt')
 def foo():
     pass
 
 
-@call_times('log.txt')
-def foo1():
+@call_times('foo.txt')
+def boo():
+    pass
+
+
+@call_times('calls.txt')
+def doo():
     pass
 
 
 foo()
+boo()
 foo()
 foo()
-foo1()
-foo1()
+boo()
+doo()
