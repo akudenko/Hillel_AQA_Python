@@ -5,7 +5,6 @@
 # Встроенную функцию map не используем.
 #
 # def custom_map(function: Callable, *iterables: Iterable) -> Iterable:
-#   pass
 #
 # Тесты:
 # sum2 = lambda x, y: x + y
