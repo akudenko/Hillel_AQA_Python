@@ -29,19 +29,18 @@ import time
 class Timer:
 
     def __init__(self):
-        elapsed_time = 0
+        self.elapsed_time = 0
 
     def __enter__(self):
         self.start = time.time()
-        print(self.start)
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.finish = time.time()
-        self.elapsed_time = round(self.finish - self.start)
+        self.elapsed_time += round(self.finish - self.start)
 
     def reset(self):
-        elapsed_time = 0
+        self.elapsed_time = 0
 
 
 with Timer() as t:
